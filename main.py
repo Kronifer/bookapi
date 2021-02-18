@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from replit import db
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=["GET"])
 def home():
-    return "<h1>Home page for book api</h1>"
+    return render_template("home.html")
 
 
 @app.route('/api/v1/data/add', methods=["GET"])
