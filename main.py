@@ -27,14 +27,17 @@ def adddata():
 @app.route('/api/v1/data/get', methods=["GET"])
 def getdata():
     title = request.args.get("title").lower()
-    tvalue = db[title]
-    gvalue = db[title + '^']
-    avalue = db[title + '@']
-    data = {}
-    data.update({"title": tvalue})
-    data.update({"author": avalue})
-    data.update({"genre": gvalue})
-    return jsonify(data)
+    try:
+        tvalue = db[title]
+        gvalue = db[title + '^']
+        avalue = db[title + '@']
+        data = {}
+        data.update({"title": tvalue})
+        data.update({"author": avalue})
+        data.update({"genre": gvalue})
+        return jsonify(data)
+    except:
+        return "That book has not been registered yet. Consider adding it yourself!"
 
 @app.route('/api/v1/data/getgenre', methods=["GET"])
 def getbygenre():
