@@ -14,6 +14,8 @@ def adddata():
     title = request.args.get("title").lower()
     author = request.args.get("author").lower()
     genre = request.args.get("genre").lower()
+    publisher = request.args.get("publisher").lower()
+    yearpublished = int(request.args.get("pubyear"))
     try:
         db[title]
         return "Book has already been added."
@@ -21,6 +23,8 @@ def adddata():
         db[title] = title
         db[title + "@"] = author
         db[title + "^"] = genre
+        db[title + "&"] = publisher
+        db[title + "*"] = yearpublished
         return ("Data has been added!")
 
 
@@ -31,9 +35,13 @@ def getdata():
         tvalue = db[title]
         gvalue = db[title + '^']
         avalue = db[title + '@']
+        pvalue = db[title + "&"]
+        pyear = db[title + "*"]
         data = {}
         data.update({"title": tvalue})
         data.update({"author": avalue})
+        data.update({"publisher": pvalue})
+        data.update({"year published": pyear})
         data.update({"genre": gvalue})
         return jsonify(data)
     except:
