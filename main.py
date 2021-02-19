@@ -39,7 +39,8 @@ def getdata():
     except:
         return "That book has not been registered yet. Consider adding it yourself!"
 
-@app.route('/api/v1/data/getgenre', methods=["GET"])
+
+@app.route('/api/v1/data/getbygenre', methods=["GET"])
 def getbygenre():
     genre = request.args.get('genre').lower()
     keys = db.keys()
@@ -54,13 +55,17 @@ def getbygenre():
                     pass
                 else:
                     newtitle += element
-            data.update({newtitle: value})
+            author = db[newtitle + "@"]
+
+            data.update({newtitle: author})
         else:
             pass
     return jsonify(data)
-            
 
 
+@app.route('/about', methods=["GET"])
+def about():
+    return render_template("about.html")
 
 
 app.run(host="0.0.0.0", port="8080")

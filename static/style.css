@@ -1,0 +1,22 @@
+h1 {
+   color: #000000;
+   margin-left: 5px;
+   font-family: sans-serif;
+   font-weight: 250;
+   text-shadow: 3px 3px 5px #343434;
+    }
+    h2 {
+        margin-left: 2.5px;
+        font-family: sans-serif;
+        font-weight: 250;
+    }
+    body {
+        background-image: url("https://cbsnews2.cbsistatic.com/hub/i/r/2015/12/11/7f3c9843-adb1-4022-be13-82515641a9fc/thumbnail/1200x630/5af2e16fd2ecd02f06637db5ca110a43/open-book.jpg");
+        background-color: linen;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-attachment: fixed;
+    }
+    p {
+        font-family: sans-serif;
+    }
