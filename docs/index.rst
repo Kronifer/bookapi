@@ -10,6 +10,7 @@ Welcome to Bookapi's documentation!
    :maxdepth: 2
    
    Adding-books
+   Getting-book-data
 
 Bookapi is an API you can use to find information on most books released, if they've been added to the database.
 

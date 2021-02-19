@@ -75,6 +75,7 @@ def getbygenre():
 def about():
     return render_template("about.html")
 
+
 @app.errorhandler(404)
 def error404(e):
     return render_template("404.html")
