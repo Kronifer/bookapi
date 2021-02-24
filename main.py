@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 import pymongo
-import json
 
 app = Flask(__name__)
 
