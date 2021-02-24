@@ -1,8 +1,13 @@
 from flask import Flask, request, jsonify, render_template
-from replit import db
+import pymongo
+import json
 
 app = Flask(__name__)
 
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
+client = pymongo.MongoClient("mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority")
+db = client.Bookapi
 
 @app.route('/', methods=["GET"])
 def home():
@@ -16,59 +21,38 @@ def adddata():
     genre = request.args.get("genre").lower()
     publisher = request.args.get("publisher").lower()
     yearpublished = int(request.args.get("pubyear"))
-    try:
-        db[title]
-        return "Book has already been added."
-    except:
-        db[title] = title
-        db[title + "@"] = author
-        db[title + "^"] = genre
-        db[title + "&"] = publisher
-        db[title + "*"] = yearpublished
-        return ("Data has been added!")
+    data = {}
+    data.update({"title": title})
+    data.update({"author": author})
+    data.update({"genre": genre})
+    data.update({"publisher": publisher})
+    data.update({"year published": yearpublished})
+    db.Books.insert_one(data)
+    return "Data has been added!"
 
 
 @app.route('/api/v1/data/get', methods=["GET"])
 def getdata():
-    title = request.args.get("title").lower()
-    try:
-        tvalue = db[title]
-        gvalue = db[title + '^']
-        avalue = db[title + '@']
-        pvalue = db[title + "&"]
-        pyear = db[title + "*"]
-        data = {}
-        data.update({"title": tvalue})
-        data.update({"author": avalue})
-        data.update({"publisher": pvalue})
-        data.update({"year published": pyear})
-        data.update({"genre": gvalue})
-        return jsonify(data)
-    except:
-        return "That book has not been registered yet. Consider adding it yourself!"
+    title = request.args.get('title')
+    collection = db.Books
+    doc = collection.find_one({"title": title}, {"_id": 0})
+    if doc == None:
+        return "Book is not registered."
+    else:
+        return jsonify(doc)
+
 
 
 @app.route('/api/v1/data/getbygenre', methods=["GET"])
 def getbygenre():
     genre = request.args.get('genre').lower()
-    keys = db.keys()
-    data = {}
-    for key in keys:
-        newtitle = ""
-        value = db[key]
-        badchars = ["@", "^"]
-        if value == genre:
-            for element in key:
-                if element in badchars:
-                    pass
-                else:
-                    newtitle += element
-            author = db[newtitle + "@"]
-
-            data.update({newtitle: author})
-        else:
-            pass
+    collection = db.Books
+    docs = collection.find({"genre": genre}, {"_id": 0})
+    data = []
+    for document in docs:
+        data.append(document)
     return jsonify(data)
+
 
 
 @app.route('/about', methods=["GET"])
