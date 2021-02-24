@@ -81,10 +81,10 @@ def main():
 
 
 if __name__ == "__main__":
-    if sys.argv[0] == 'test':
+    if sys.argv[1] == 'test':
         main()
         time.sleep(3)
         os.system('curl http://localhost:8080/api/v1/data/get?title=dragonwatch')
         os.system("curl http://localhost:8080/admin/shutdown")
-    else:
+    elif sys.argv[1] == "run":
         main()
