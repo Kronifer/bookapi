@@ -23,18 +23,23 @@ def main():
     @app.route('/api/v1/data/add', methods=['GET'])
     def adddata():
         title = request.args.get('title').lower()
-        author = request.args.get('author').lower()
-        genre = request.args.get('genre').lower()
-        publisher = request.args.get('publisher').lower()
-        yearpublished = int(request.args.get('pubyear'))
-        data = {}
-        data.update({'title': title})
-        data.update({'author': author})
-        data.update({'genre': genre})
-        data.update({'publisher': publisher})
-        data.update({'year published': yearpublished})
-        db.Books.insert_one(data)
-        return 'Data has been added!'
+        book = db.Books.find_one({"title":title}, {"_id": 0})
+        print(book)
+        if book != None:
+            return "Book has already been added."
+        else:
+            author = request.args.get('author').lower()
+            genre = request.args.get('genre').lower()
+            publisher = request.args.get('publisher').lower()
+            yearpublished = int(request.args.get('pubyear'))
+            data = {}
+            data.update({'title': title})
+            data.update({'author': author})
+            data.update({'genre': genre})
+            data.update({'publisher': publisher})
+            data.update({'year published': yearpublished})
+            db.Books.insert_one(data)
+            return 'Data has been added!'
 
     @app.route('/api/v1/data/get', methods=['GET'])
     def getdata():
