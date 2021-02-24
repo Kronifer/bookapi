@@ -4,6 +4,8 @@ import json
 
 app = Flask(__name__)
 
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 client = pymongo.MongoClient("mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority")
 db = client.Bookapi
 
