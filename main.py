@@ -56,6 +56,16 @@ def main():
             data.append(document)
         return jsonify(data)
 
+    @app.route('/api/v1/data/getbyauthor', methods=["GET"])
+    def getbyauthor():
+        author = request.args.get('author').lower()
+        collection = db.Books
+        docs = collection.find({"author":author}, {"_id": 0})
+        data = []
+        for document in docs:
+            data.append(document)
+        return jsonify(data)
+
     @app.route('/about', methods=['GET'])
     def about():
         return render_template('about.html')
