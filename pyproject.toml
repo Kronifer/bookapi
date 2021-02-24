@@ -10,6 +10,8 @@ replit = "^2.0.0"
 flask = "^1.1.2"
 pymongo = "^3.11.3"
 dnspython = "^2.1.0"
+twilio = "^6.52.0"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 

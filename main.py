@@ -1,9 +1,12 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, render_template
 import pymongo
 import os
 import time
 from threading import Thread
 import sys
+
 
 def main():
 
@@ -12,8 +15,7 @@ def main():
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
     client = \
-        pymongo.MongoClient('mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority'
-                            )
+        pymongo.MongoClient('mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority')
     db = client.Bookapi
 
     @app.route('/', methods=['GET'])
@@ -23,10 +25,10 @@ def main():
     @app.route('/api/v1/data/add', methods=['GET'])
     def adddata():
         title = request.args.get('title').lower()
-        book = db.Books.find_one({"title":title}, {"_id": 0})
-        print(book)
+        book = db.Books.find_one({'title': title}, {'_id': 0})
+        print (book)
         if book != None:
-            return "Book has already been added."
+            return 'Book has already been added.'
         else:
             author = request.args.get('author').lower()
             genre = request.args.get('genre').lower()
@@ -61,11 +63,11 @@ def main():
             data.append(document)
         return jsonify(data)
 
-    @app.route('/api/v1/data/getbyauthor', methods=["GET"])
+    @app.route('/api/v1/data/getbyauthor', methods=['GET'])
     def getbyauthor():
         author = request.args.get('author').lower()
         collection = db.Books
-        docs = collection.find({"author":author}, {"_id": 0})
+        docs = collection.find({'author': author}, {'_id': 0})
         data = []
         for document in docs:
             data.append(document)
@@ -74,8 +76,8 @@ def main():
     @app.route('/about', methods=['GET'])
     def about():
         return render_template('about.html')
-    
-    @app.route("/admin/shutdown", methods=["GET"])
+
+    @app.route('/admin/shutdown', methods=['GET'])
     def shutdown_server():
         func = request.environ.get('werkzeug.server.shutdown')
         if func is None:
@@ -85,8 +87,6 @@ def main():
     @app.errorhandler(404)
     def error404(e):
         return render_template('404.html')
-    
-    
 
     def run():
         app.run(host='0.0.0.0', port='8080')
@@ -95,11 +95,12 @@ def main():
     apiserver.start()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     if sys.argv[1] == 'test':
         main()
         time.sleep(3)
-        os.system('curl http://localhost:8080/api/v1/data/get?title=dragonwatch')
-        os.system("curl http://localhost:8080/admin/shutdown")
-    elif sys.argv[1] == "run":
+        os.system('curl http://localhost:8080/api/v1/data/get?title=dragonwatch'
+                  )
+        os.system('curl http://localhost:8080/admin/shutdown')
+    elif sys.argv[1] == 'run':
         main()
