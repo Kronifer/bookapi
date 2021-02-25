@@ -90,7 +90,7 @@ def main():
         return render_template('404.html')
 
     def run():
-        app.run(host='192.168.100.135', port='8080')
+        app.run(host='0.0.0.0', port='8080')
 
     apiserver = Thread(target=run)
     apiserver.start()
