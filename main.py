@@ -73,6 +73,19 @@ def main():
             data.append(document)
         return jsonify(data)
 
+    @app.route('/api/v1/data/getbypubyear', methods=['GET'])
+    def getbypubyear():
+        pubyear = request.args.get('genre')
+        collection = db.Books
+        docs = collection.find({"pubyear":pubyear}, {"_id": 0})
+        data = []
+        for document in docs:
+            data.append(document)
+        return jsonify(data)    
+        
+
+
+
     @app.route('/about', methods=['GET'])
     def about():
         return render_template('about.html')
