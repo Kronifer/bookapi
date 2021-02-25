@@ -71,19 +71,7 @@ def main():
         data = []
         for document in docs:
             data.append(document)
-        return jsonify(data)
-
-    @app.route('/api/v1/data/getbypubyear', methods=['GET'])
-    def getbypubyear():
-        pubyear = request.args.get('genre')
-        collection = db.Books
-        docs = collection.find({"pubyear":pubyear}, {"_id": 0})
-        data = []
-        for document in docs:
-            data.append(document)
         return jsonify(data)    
-        
-
 
 
     @app.route('/about', methods=['GET'])
@@ -102,7 +90,7 @@ def main():
         return render_template('404.html')
 
     def run():
-        app.run(host='0.0.0.0', port='8080')
+        app.run(host='192.168.100.135', port='8080')
 
     apiserver = Thread(target=run)
     apiserver.start()
