@@ -14,8 +14,10 @@ def main():
 
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
-    client = \
-        pymongo.MongoClient('mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority')
+    client = pymongo.MongoClient(
+        "mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net/Bookapi?retryWrites=true&w=majority"
+    )
+
     db = client.Bookapi
 
     @app.route('/', methods=['GET'])
@@ -27,7 +29,7 @@ def main():
         title = request.args.get('title').lower()
         book = db.Books.find_one({'title': title}, {'_id': 0})
         print (book)
-        if book != None:
+        if book is not None:
             return 'Book has already been added.'
         else:
             author = request.args.get('author').lower()
@@ -48,7 +50,7 @@ def main():
         title = request.args.get('title')
         collection = db.Books
         doc = collection.find_one({'title': title}, {'_id': 0})
-        if doc == None:
+        if doc is None:
             return 'Book is not registered.'
         else:
             return jsonify(doc)
@@ -70,8 +72,8 @@ def main():
         docs = collection.find({'author': author}, {'_id': 0})
         data = []
         for document in docs:
-            data.append(document)
-        return jsonify(data)    
+            data.append(document)    
+        return jsonify(data)
 
 
     @app.route('/about', methods=['GET'])
@@ -100,8 +102,9 @@ if __name__ == '__main__':
     if sys.argv[1] == 'test':
         main()
         time.sleep(3)
-        os.system('curl http://localhost:8080/api/v1/data/get?title=dragonwatch'
-                  )
+        os.system(
+            'curl http://localhost:8080/api/v1/data/get?title=dragonwatch'
+        )
         os.system('curl http://localhost:8080/admin/shutdown')
     elif sys.argv[1] == 'run':
         main()
