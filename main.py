@@ -7,9 +7,6 @@ import time
 from threading import Thread
 import sys
 
-dbLink = """mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net
-/Bookapi?retryWrites=true&w=majority"""
-
 def main():
 
     app = Flask(__name__)
@@ -17,7 +14,8 @@ def main():
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
     client = pymongo.MongoClient(
-        str(dbLink)
+        "mongodb+srv://APIUSER:book_api@books.1zhnr.mongodb.net
+/Bookapi?retryWrites=true&w=majority"
     )
 
     db = client.Bookapi
