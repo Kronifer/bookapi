@@ -7,6 +7,7 @@ import time
 from threading import Thread
 import sys
 
+
 def main():
 
     app = Flask(__name__)
@@ -74,7 +75,7 @@ def main():
             data.append(document)    
         return jsonify(data)
 
-@app.route('/api/v1/data/getall', methods=["GET"])
+    @app.route('/api/v1/data/getall', methods=["GET"])
     def getall():
         bookData = db.Books
         docs = bookData.find({}, {"_id":0})
