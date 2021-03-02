@@ -74,6 +74,14 @@ def main():
             data.append(document)    
         return jsonify(data)
 
+@app.route('/api/v1/data/getall', methods=["GET"])
+    def getall():
+        bookData = db.Books
+        docs = bookData.find({}, {"_id":0})
+        docList = []
+        for x in docs:
+            docList.append(x)
+        return jsonify(docList)
 
     @app.route('/about', methods=['GET'])
     def about():
