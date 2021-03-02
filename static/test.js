@@ -1,0 +1,3 @@
+function MyFunction() {
+    alert("pog")
+}

@@ -10,6 +10,11 @@ h1 {
         font-family: sans-serif;
         font-weight: 250;
     }
+    h3 {
+        margin-left: 2.5px;
+        font-family: sans-serif;
+        font-weight: 250;
+    }
     body {
         background-image: url("https://cbsnews2.cbsistatic.com/hub/i/r/2015/12/11/7f3c9843-adb1-4022-be13-82515641a9fc/thumbnail/1200x630/5af2e16fd2ecd02f06637db5ca110a43/open-book.jpg");
         background-color: linen;

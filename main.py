@@ -99,6 +99,10 @@ def main():
     def error404(e):
         return render_template('404.html')
 
+    @app.route("/test", methods=["GET"])
+    def test():
+        return render_template("test.html")
+
     def run():
         app.run(host='0.0.0.0', port='8080')
 
