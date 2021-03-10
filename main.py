@@ -47,7 +47,7 @@ def main():
 
     @app.route('/api/v1/get', methods=['GET'])
     def getdata():
-        title = request.args.get('title')
+        title = request.args.get('title').lower()
         collection = db.Books
         doc = collection.find_one({'title': title}, {'_id': 0})
         if doc is None:
