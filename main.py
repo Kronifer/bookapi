@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_file
 import pymongo
 import os
 import time
@@ -99,9 +99,17 @@ def main():
     def error404(e):
         return render_template('404.html')
 
-    @app.route("/test", methods=["GET"])
+    @app.errorhandler(500)
+    def error500(e):
+        return render_template("500.html")
+
+    @app.route("/jstest", methods=["GET"])
     def test():
         return render_template("test.html")
+
+    @app.route('/robots.txt', methods=["GET"])
+    def robots():
+        return send_file("templates/robots.txt")
 
     def run():
         app.run(host='0.0.0.0', port='8080')
