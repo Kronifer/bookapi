@@ -24,7 +24,7 @@ def main():
     def home():
         return render_template('home.html')
 
-    @app.route('/api/v1/data/add', methods=['GET'])
+    @app.route('/api/v1/add', methods=['GET'])
     def adddata():
         title = request.args.get('title').lower()
         book = db.Books.find_one({'title': title}, {'_id': 0})
@@ -45,7 +45,7 @@ def main():
             db.Books.insert_one(data)
             return 'Data has been added!'
 
-    @app.route('/api/v1/data/get', methods=['GET'])
+    @app.route('/api/v1/get', methods=['GET'])
     def getdata():
         title = request.args.get('title')
         collection = db.Books
@@ -55,7 +55,7 @@ def main():
         else:
             return jsonify(doc)
 
-    @app.route('/api/v1/data/getbygenre', methods=['GET'])
+    @app.route('/api/v1/getbygenre', methods=['GET'])
     def getbygenre():
         genre = request.args.get('genre').lower()
         collection = db.Books
@@ -65,7 +65,7 @@ def main():
             data.append(document)
         return jsonify(data)
 
-    @app.route('/api/v1/data/getbyauthor', methods=['GET'])
+    @app.route('/api/v1/getbyauthor', methods=['GET'])
     def getbyauthor():
         author = request.args.get('author').lower()
         collection = db.Books
@@ -75,7 +75,7 @@ def main():
             data.append(document)    
         return jsonify(data)
 
-    @app.route('/api/v1/data/getall', methods=["GET"])
+    @app.route('/api/v1/getall', methods=["GET"])
     def getall():
         bookData = db.Books
         docs = bookData.find({}, {"_id":0})
@@ -123,7 +123,7 @@ if __name__ == '__main__':
         main()
         time.sleep(3)
         os.system(
-            'curl http://localhost:8080/api/v1/data/get?title=dragonwatch'
+            'curl http://localhost:8080/api/v1/get?title=dragonwatch'
         )
         os.system('curl http://localhost:8080/admin/shutdown')
     elif sys.argv[1] == 'run':

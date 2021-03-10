@@ -12,6 +12,7 @@ Welcome to Bookapi's documentation!
    Adding-books
    Getting-book-data
    Getting-books-by-genre
+   Getting-all-data
 
 Bookapi is an API you can use to find information on most books released, if they've been added to the database.
 
