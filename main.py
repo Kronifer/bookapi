@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template, send_file
+from flask import Flask, request, jsonify, render_template, send_file, abort
 import pymongo
 import os
 import time
@@ -28,7 +28,7 @@ def main():
     def adddata():
         title = request.args.get('title').lower()
         book = db.Books.find_one({'title': title}, {'_id': 0})
-        print (book)
+        print(book)
         if book is not None:
             return 'Book has already been added.'
         else:
@@ -72,13 +72,13 @@ def main():
         docs = collection.find({'author': author}, {'_id': 0})
         data = []
         for document in docs:
-            data.append(document)    
+            data.append(document)
         return jsonify(data)
 
     @app.route('/api/v1/getall', methods=["GET"])
     def getall():
         bookData = db.Books
-        docs = bookData.find({}, {"_id":0})
+        docs = bookData.find({}, {"_id": 0})
         docList = []
         for x in docs:
             docList.append(x)
@@ -87,6 +87,10 @@ def main():
     @app.route('/about', methods=['GET'])
     def about():
         return render_template('about.html')
+        
+    @app.route("/coffee")
+    def coffee():
+        abort(418)
 
     @app.route('/admin/shutdown', methods=['GET'])
     def shutdown_server():
