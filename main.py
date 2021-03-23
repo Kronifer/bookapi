@@ -121,14 +121,4 @@ def main():
     apiserver = Thread(target=run)
     apiserver.start()
 
-
-if __name__ == '__main__':
-    if sys.argv[1] == 'test':
-        main()
-        time.sleep(3)
-        os.system(
-            'curl http://localhost:8080/api/v1/get?title=dragonwatch'
-        )
-        os.system('curl http://localhost:8080/admin/shutdown')
-    elif sys.argv[1] == 'run':
-        main()
+main()
