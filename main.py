@@ -106,6 +106,10 @@ def error500(e):
 def test():
     return render_template("test.html")
 
+@app.route("/register", methods=["GET"])
+def register():
+    return render_template("register.html")
+
 @app.route('/robots.txt', methods=["GET"])
 def robots():
     return send_file("templates/robots.txt")
