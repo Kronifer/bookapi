@@ -4,9 +4,6 @@ from flask import Flask, request, jsonify, render_template, send_file, abort
 import pymongo
 import os
 import time
-from threading import Thread
-import sys
-
 
 def main():
 
@@ -115,10 +112,6 @@ def main():
     def robots():
         return send_file("templates/robots.txt")
 
-    def run():
-        app.run(host='0.0.0.0', port='8080')
-
-    apiserver = Thread(target=run)
-    apiserver.start()
+    app.run(host='0.0.0.0', port='8080')
 
 main()
