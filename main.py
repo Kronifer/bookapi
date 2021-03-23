@@ -112,6 +112,6 @@ def main():
     def robots():
         return send_file("templates/robots.txt")
 
-    app.run(host='0.0.0.0', port='8080')
+    app.run(threaded=True, port=5000)
 
 main()
