@@ -5,8 +5,6 @@ import pymongo
 import os
 import time
 
-def main():
-
 app = Flask(__name__)
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
